@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+login
+<form action="/http:localhost:8080/auth" method="post">
+    <input name="name">
+    <input name="password">
+    <button type="submit">submit</button>
+</form>
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    var j = {
+        name: '123',
+        password: '123'
+    };
+    $.ajax({
+        url: 'http://localhost:8080/auth',
+        contentType: 'application/json',
+        type: 'POST',
+        dataType: 'json',
+        xhrFields: {
+            withCredentials: true
+        },
+        crossDomain: true,
+        data: JSON.stringify(j),
+        success: function (e) {
+            console.log(e);
+        }
+    });
+    var xhr = new XMLHttpRequest();
+
+    // xhr.open('get', 'http://localhost:8080/auth?name=123&password=123');
+    // xhr.setRequestHeader("Data-Type", "application/json");
+    xhr.onreadystatechange = function (ev) {
+        if (xhr.status == 200 && xhr.readyState == 4) {
+            console.log(xhr.responseText);
+        }
+    };
+    // xhr.send(j)
+</script>
