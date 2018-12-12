@@ -5,6 +5,7 @@ import com.dyz.about.model.ShiroUser;
 import com.dyz.about.service.UserServiceImpl;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
@@ -27,8 +29,8 @@ public class UserController {
     UserServiceImpl userService;
     @RequestMapping("/login")
     public String login() {
-        Subject subject = SecurityUtils.getSubject();
-        System.out.println(subject.isAuthenticated());
+//        Subject subject = SecurityUtils.getSubject();
+//        System.out.println(subject.isAuthenticated());
 //        UsernamePasswordToken token = new UsernamePasswordToken("123","123");
 //        token.setRememberMe(true);
 //        subject.login(token);
@@ -40,16 +42,17 @@ public class UserController {
         return "index";
     }
 
-    @RequestMapping("auth")
-    public @ResponseBody Map<String, Object> auth(@RequestBody ShiroUser user) {
+    @RequestMapping("/auth")
+    public ModelAndView auth(ShiroUser user) {
         userService.findByID(1);
-        Subject subject = SecurityUtils.getSubject();
+        Subject subject = SecurityUtils.getSubject();System.out.println(subject.isAuthenticated());
         UsernamePasswordToken token = new UsernamePasswordToken(user.getName(), user.getPassword().toString());
         token.setRememberMe(true);
         Map<String, Object> o = new HashMap<>();
         try {
             subject.login(token);
             o.put("msg", "认证成功");
+            System.out.println(subject.isAuthenticated());
             //if no exception, that's it, we're done!
         } catch (UnknownAccountException uae) {
             o.put("msg", "没有该账户");
@@ -64,12 +67,14 @@ public class UserController {
             //unexpected condition - error?g
             o.put("msg", "未知错误");
         } finally {
-            return o;
         }
+        ModelAndView mav = new ModelAndView("hello");
+        mav.addObject("map", o);
+        return mav;
 //        System.out.println(subject.isAuthenticated());
 //        return "login";
     }
-
+    @RequiresPermissions("a")
     @SuppressWarnings("Duplicates")
     @RequestMapping("/")
     public String home(HttpServletRequest request, Model model) {
@@ -111,5 +116,9 @@ public class UserController {
         model.addAttribute("name", name);
 
         return "account-info";
+    }
+    @RequestMapping("/errorr")
+    public String errorr() {
+        return "error";
     }
 }

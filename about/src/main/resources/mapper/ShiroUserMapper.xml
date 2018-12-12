@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.dyz.about.model.ShiroUser">
     <id column="su_id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="password" jdbcType="INTEGER" property="password" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
     <collection property="userRoleList" ofType="com.dyz.about.model.UserRole" column="su_id">
       <id column="ur_id" jdbcType="INTEGER" property="id" />
       <result column="ur_uid" jdbcType="INTEGER" property="uid" />
@@ -183,6 +183,6 @@
     where su.id = #{id}
   </select>
   <select id="findByName" parameterType="string" resultType="com.dyz.about.model.ShiroUser" resultMap="BaseResultMap">
-    select * from ShiroUser where name = #{name}
+    select su.id as su_id, su.name, su.password from ShiroUser su where name = #{name}
   </select>
 </mapper>

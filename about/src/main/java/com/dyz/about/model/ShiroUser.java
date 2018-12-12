@@ -7,7 +7,7 @@ public class ShiroUser {
 
     private String name;
 
-    private Integer password;
+    private String password;
 
     private List<UserRole> userRoleList;
 
@@ -28,11 +28,11 @@ public class ShiroUser {
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(Integer password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

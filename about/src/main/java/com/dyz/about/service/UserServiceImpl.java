@@ -24,12 +24,6 @@ public class UserServiceImpl {
     RolePermissionMapper rolePermissionMapper;
     public ShiroUser findByID(int id) {
         ShiroUser shiroUser = shiroUserMapper.findByID(id);
-        List<UserRole> userRoles = userRoleMapper.findByUID(id);
-        Set<RolePermission> permissions = new HashSet<>();
-        for (UserRole userRole : userRoles) {
-            permissions.addAll(rolePermissionMapper.findByRID(userRole.getRid()));
-        }
-        shiroUser.setUserRoleList(userRoles);
         return shiroUser;
     }
     public ShiroUser findByName(String name) {
