@@ -168,7 +168,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-    <!--select * from ShiroUser su, user_role ur, Role r, role_permisson rp, Permission p-->
+    <!--select * from ShiroUser su, user_role ur, Role r, role_permission rp, Permission p-->
     <!--where #{id} = ur.uid and ur.rid = r.id and r.id = rp.rid and rp.pid = p.id-->
   <select id="findByID" parameterType="int" resultType="com.dyz.about.model.ShiroUser" resultMap="BaseResultMap">
     select su.id as su_id, su.name, su.password,
@@ -178,7 +178,7 @@
     p.id as p_id, p.permission
     from ShiroUser su left join user_role ur on su.id = ur.uid
     left join Role r on ur.rid = r.id
-    left join role_permisson rp on rp.rid = rp.rid
+    left join role_permission rp on rp.rid = rp.rid
     left join Permission p on p.id = rp.pid
     where su.id = #{id}
   </select>

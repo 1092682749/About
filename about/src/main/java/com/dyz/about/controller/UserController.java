@@ -121,4 +121,8 @@ public class UserController {
     public String errorr() {
         return "error";
     }
+    @RequestMapping("/testRequest")
+    public String testRequest() {
+        return "testRequestMethod";
+    }
 }

@@ -1,8 +1,9 @@
 package com.dyz.about.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ShiroUser {
+public class ShiroUser implements Serializable {
     private Integer id;
 
     private String name;

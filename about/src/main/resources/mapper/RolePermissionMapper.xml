@@ -74,7 +74,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from role_permisson
+    from role_permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -83,17 +83,17 @@
     </if>
   </select>
   <delete id="deleteByExample" parameterType="com.dyz.about.model.RolePermissionExample">
-    delete from role_permisson
+    delete from role_permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.dyz.about.model.RolePermission">
-    insert into role_permisson (pid, id, rid)
+    insert into role_permission (pid, id, rid)
     values (#{pid,jdbcType=INTEGER}, #{id,jdbcType=INTEGER}, #{rid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.dyz.about.model.RolePermission">
-    insert into role_permisson
+    insert into role_permission
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="pid != null">
         pid,
@@ -118,13 +118,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.dyz.about.model.RolePermissionExample" resultType="java.lang.Long">
-    select count(*) from role_permisson
+    select count(*) from role_permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update role_permisson
+    update role_permission
     <set>
       <if test="record.pid != null">
         pid = #{record.pid,jdbcType=INTEGER},
@@ -141,7 +141,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update role_permisson
+    update role_permission
     set pid = #{record.pid,jdbcType=INTEGER},
       id = #{record.id,jdbcType=INTEGER},
       rid = #{record.rid,jdbcType=INTEGER}
@@ -150,6 +150,6 @@
     </if>
   </update>
     <select id="findByRID" parameterType="int" resultType="com.dyz.about.model.RolePermission" resultMap="BaseResultMap">
-        select * from role_permisson where rid = #{rid}
+        select * from role_permission where rid = #{rid}
     </select>
 </mapper>

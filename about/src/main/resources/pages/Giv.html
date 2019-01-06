@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input id="nameInput" type="text" placeholder="按姓名检索时需要输入证件类型和号码" onkeyup="checkInput('nameInput')">
+</body>
+</html>
+<script>
+    var nameInput = document.getElementById('nameInput');
+    var hanAndWorld = /^[\u4e00-\u9fa5A-Za-z]+$/;
+    var num = /^[0-9]+$/
+    var nameInputCount = 0;
+    nameInput.onfocus = function (ev) {
+        if (nameInputCount != 0) {
+            return;
+        }
+        nameInputCount++;
+        alert("按姓名检索时需要输入证件类型和号码");
+    };
+    function checkInput(id) {
+            var value = nameInput.value;
+            console.log(num.test(value))
+            nameInput.value = hanAndWorld.test(value) ? value : '';
+    }
+</script>

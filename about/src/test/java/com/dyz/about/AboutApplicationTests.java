@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -42,5 +44,23 @@ public class AboutApplicationTests {
         List<UserRole> userRoleList = shiroUser.getUserRoleList();
         System.out.println(shiroUser);
     }
-
+    @Autowired
+    RedisTemplate redisTemplate;
+    @Test
+    public void test() {
+        Role role = new Role();
+        role.setId(2L);
+        role.setRoleName("name");
+        redisTemplate.opsForValue().set("role", role);
+        redisTemplate.opsForValue().set("string","string");
+        Object str = redisTemplate.opsForValue().get("string");
+        Role role1 = (Role) redisTemplate.opsForValue().get("role");
+        Boolean is = (Boolean) redisTemplate.execute((RedisCallback) redisConnection -> {
+            return redisConnection.setNX("lock".getBytes(), "sync".getBytes());
+        });
+        Boolean is1 = redisTemplate.getConnectionFactory().getConnection().setNX("lock".getBytes(), "sync".getBytes());
+        System.out.println(is);
+        System.out.println(is1);
+        System.out.println(role1.getRoleName());
+    }
 }
