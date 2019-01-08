@@ -38,6 +38,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -55,6 +56,7 @@ import java.util.Map;
 @Configuration
 @ControllerAdvice
 @SpringBootApplication
+@ServletComponentScan
 @MapperScan("com.example.demo.dao")
 public class AboutApplication {
 

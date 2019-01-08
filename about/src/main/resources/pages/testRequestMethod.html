@@ -10,12 +10,20 @@
 </html>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script>
-    $.ajax({
-        url: 'http://localhost:8080/auth',
-        type: "TRACE",
-        // contentType: 'application/json',
-        success: function (e) {
-            console.log(e);
-        }
-    })
+    // $.ajax({
+    //     url: 'http://localhost:8080/auth',
+    //     type: "TRACE",
+    //     // contentType: 'application/json',
+    //     success: function (e) {
+    //         console.log(e);
+    //     }
+    // })
+    var socket = new WebSocket("ws://localhost:9090");
+    socket.onopen = function (ev) {
+        console.log('open');
+        socket.send("ok");
+    };
+    socket.onmessage = function (ev) {
+        console.log(ev);
+    }
 </script>
